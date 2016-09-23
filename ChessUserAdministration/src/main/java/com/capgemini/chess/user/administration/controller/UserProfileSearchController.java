@@ -192,9 +192,6 @@ public class UserProfileSearchController {
 			@Override
 			public void handle(WindowEvent event) {
 				resultTable.refresh();
-//				LOG.debug("Refreshed Table");
-//				resultTable.getSortOrder().clear();
-//				resultTable.get
 			}
 		});
 		

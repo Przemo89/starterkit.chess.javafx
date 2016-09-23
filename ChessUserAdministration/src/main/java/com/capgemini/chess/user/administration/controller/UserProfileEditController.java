@@ -99,7 +99,6 @@ public class UserProfileEditController {
 			@Override
 			protected void succeeded() {
 				LOG.debug("succeeded() called in save method");
-//				model.setEditedObject(this.getValue());
 				saveChanges(this.getValue());
 				Node source = (Node) event.getSource();
 				Stage stage = (Stage) source.getScene().getWindow();

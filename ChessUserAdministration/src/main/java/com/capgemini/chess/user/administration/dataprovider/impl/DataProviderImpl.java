@@ -1,6 +1,10 @@
 package com.capgemini.chess.user.administration.dataprovider.impl;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -19,14 +23,28 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
-public class DataProviderImpl implements DataProvider{
+public class DataProviderImpl implements DataProvider {
 	
 	private static final Logger LOG = Logger.getLogger(DataProviderImpl.class);
 
-	private final static String REST_ROOT_URL = "http://localhost:8090/user/";
+	private final Properties restURLProperties = new Properties();
 	
 	public DataProviderImpl() {
-		
+		setProperties();
+	}
+	
+	private void setProperties() {
+		InputStream fileStream;
+		try {
+			fileStream = new FileInputStream("src/main/resources/chess.rest.urls.properties");
+			restURLProperties.load(fileStream);
+			fileStream.close();
+			LOG.debug("Successfully loaded properties");
+		} catch (IOException e) {
+			LOG.debug("Error while loading chess rest properties", e);
+			LOG.debug("Exiting system...");
+			System.exit(1);
+		}
 	}
 
 	@Override
@@ -38,9 +56,7 @@ public class DataProviderImpl implements DataProvider{
 		ClientConfig clientConfig = new DefaultClientConfig();
 		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 		Client client = Client.create(clientConfig);
-		
-		WebResource webResourceGet = client.resource("http://localhost:8090/user/search")
-				.queryParams(params);
+		WebResource webResourceGet = client.resource(restURLProperties.getProperty("chess.rest.users.search.url")).queryParams(params);
 		ClientResponse response = webResourceGet.get(ClientResponse.class);
 		List<UserProfileVO> list = webResourceGet.get(new GenericType<List<UserProfileVO>>(){});
 		for (UserProfileVO lol : list) {
@@ -56,7 +72,7 @@ public class DataProviderImpl implements DataProvider{
 	@Override
 	public void deleteUserProfile(Long id) throws WebApplicationException {
 		Client client = Client.create();
-		WebResource webResource = client.resource(REST_ROOT_URL + id);
+		WebResource webResource = client.resource(restURLProperties.getProperty("chess.rest.users.update.delete.url") + id);
 		ClientResponse response = webResource.delete(ClientResponse.class);
 		if (response.getStatus() != 200) {
 			LOG.debug("Error");
@@ -80,7 +96,7 @@ public class DataProviderImpl implements DataProvider{
         userProfileUpdatedCopy.setAboutMe(userProfileToUpdate.getAboutMe());
         userProfileUpdatedCopy.setLifeMotto(userProfileToUpdate.getLifeMotto());
         
-        WebResource webResourcePost = client.resource(REST_ROOT_URL);
+        WebResource webResourcePost = client.resource(restURLProperties.getProperty("chess.rest.users.update.delete.url"));
         ClientResponse response = webResourcePost.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, userProfileUpdatedCopy);
         UserProfileVO responseEntity = response.getEntity(UserProfileVO.class);
         
