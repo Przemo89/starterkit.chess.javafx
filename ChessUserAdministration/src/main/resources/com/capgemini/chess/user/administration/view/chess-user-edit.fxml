@@ -26,6 +26,7 @@
             <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+         	<!-- REV: teksty z bundla -->
             <Label prefHeight="40.0" prefWidth="180.0" text="User Login" />
             <Label prefHeight="40.0" prefWidth="175.0" text="Label" GridPane.columnIndex="1" />
             <Label prefHeight="40.0" prefWidth="180.0" text="First Name" GridPane.rowIndex="1" />

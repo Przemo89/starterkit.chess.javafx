@@ -99,6 +99,7 @@ public class UserProfileEditController {
 			@Override
 			protected void succeeded() {
 				LOG.debug("succeeded() called in save method");
+				// REV: czy twoj serwer zmienia jakos dane?
 				saveChanges(this.getValue());
 				Node source = (Node) event.getSource();
 				Stage stage = (Stage) source.getScene().getWindow();
@@ -107,8 +108,10 @@ public class UserProfileEditController {
 			
 			@Override
 			protected void failed() {
+				// REV: lepiej przekazac pelny obiekt exception
 				LOG.error("An Error occured", this.getException());
 				Alert alert = new Alert(AlertType.ERROR);
+				// REV: teksty z bundla
 				alert.setTitle("Error!");
 				alert.setHeaderText("An error occured. Please try later or contact Administrator.");
 				alert.setContentText(this.getException().getMessage());

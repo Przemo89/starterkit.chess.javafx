@@ -181,6 +181,7 @@ public class UserProfileSearchController {
 	}
 	
 	private Stage showUserProfileEditView() throws IOException {
+		// REV: nowe okno lepiej utworzyc w konstruktorze
 		FXMLLoader loader = new FXMLLoader(getClass()
 				.getResource("/com/capgemini/chess/user/administration/view/chess-user-edit.fxml"));
 		Stage stage = new Stage(StageStyle.DECORATED);
@@ -202,11 +203,13 @@ public class UserProfileSearchController {
 	
 	@FXML
 	private void exitButtonAction(ActionEvent event) {
+		// REV: Platform.exit(); 
 		System.exit(0);
 	}
 
 	private void displayErrorBox(String errorMessage) {
 		Alert alert = new Alert(AlertType.ERROR);
+		// REV: teksty z bundla
 		alert.setTitle("Error!");
 		alert.setHeaderText("An error occured. Please try later or contact Administrator.");
 		alert.setContentText(errorMessage);

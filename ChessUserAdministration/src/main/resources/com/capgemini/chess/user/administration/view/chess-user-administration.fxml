@@ -12,6 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capgemini.chess.user.administration.controller.UserProfileSearchController">
    <children>
+   	  <!-- REV: lepiej, gdy elementy sa w kolejnosci takiej jak w oknie -->
       <TableView fx:id="resultTable" layoutX="31.0" layoutY="291.0" prefHeight="211.0" prefWidth="738.0">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="100.0" text="Id" />
@@ -32,6 +33,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+         	<!-- REV: teksty z bundla -->
             <Label prefHeight="33.0" prefWidth="167.0" text="User Login" />
             <Label prefHeight="32.0" prefWidth="166.0" text="First Name" GridPane.rowIndex="1" />
             <Label prefHeight="35.0" prefWidth="167.0" text="Last Name" GridPane.rowIndex="2" />
